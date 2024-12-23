@@ -1,14 +1,27 @@
 import { ReactNode } from "react"
+import decodeHtmlEntities from "../components/DecodeEntities"
 import Radio from '../components/Radio'
-import data from '../assets/data'
 
-const Questions = (): ReactNode => {
+type QuizQuestion = {
+  type: string;
+  difficulty: string;
+  category: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+}
+
+const Questions = ( { data }: {data: Array<QuizQuestion>} ): ReactNode => {
     return (
         <form>
-        {data.results.map((data, idx) => {
+        {data.map((data: QuizQuestion, idx: number) => {
+          const decodedQuestion = decodeHtmlEntities(data.question);
+          const decodedCorrectAnswer = decodeHtmlEntities(data.correct_answer);
+          const decodedIncorrectAnswers = data.incorrect_answers.map(decodeHtmlEntities);
+
           const options = [
-            data.correct_answer,
-            ...data.incorrect_answers,
+            decodedCorrectAnswer,
+            ...decodedIncorrectAnswers,
           ]
 
           const shuffledOptions = options
@@ -21,7 +34,7 @@ const Questions = (): ReactNode => {
           return (
             <Radio 
               key={idx}
-              question={data.question}
+              question={decodedQuestion}
               idx={idx}
               opt1={shuffledOptions[0]}
               opt2={shuffledOptions[1]}

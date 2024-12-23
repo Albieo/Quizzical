@@ -1,12 +1,16 @@
-// import Game from './pages/Start'
-import Questions from './pages/Questions'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import GameForm from "./components/Form"
+import Game from "./pages/Start"
+
 
 function App() {
-
   return (
-    <>
-      <Questions />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<GameForm />} path="/" />
+        <Route element={<Game />} path="/quiz" />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
