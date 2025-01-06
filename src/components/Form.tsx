@@ -5,6 +5,8 @@ const GameForm = (): ReactNode => {
     const [selectedDiff, setSelectedDiff] = useState("");
     const [selectedCat, setSelectedCat] = useState("");
     const navigate = useNavigate();
+    const selectClasses: string = "mt-2 mb-4 w-full p-2 border-2 rounded bg-gray-50 ring-1 ring-gray-300 cursor-pointer hover:bg-gray-200"
+
 
     const handleChangeDiff = (event: ChangeEvent<HTMLSelectElement>) => setSelectedDiff(event.target.value);
     const handleChangeCat = (event: ChangeEvent<HTMLSelectElement>) => setSelectedCat(event.target.value);
@@ -25,7 +27,7 @@ const GameForm = (): ReactNode => {
                 <p className="text-xl my-9">Some description if needed</p>
                 <label htmlFor="difficulty" className="text-xl">Choose a difficulty</label>
                 <br />
-                <select className="mb-5" name="difficulty" id="difficulty" value={selectedDiff} onChange={handleChangeDiff}>
+                <select className={selectClasses} name="difficulty" id="difficulty" value={selectedDiff} onChange={handleChangeDiff}>
                     <option value="" disabled>Select difficulty</option>
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
@@ -34,7 +36,7 @@ const GameForm = (): ReactNode => {
                 <br />
                 <label htmlFor="category" className="text-xl">Choose a category</label>
                 <br />
-                <select className="mb-9" name="category" id="category" value={selectedCat} onChange={handleChangeCat}>
+                <select className={selectClasses} name="category" id="category" value={selectedCat} onChange={handleChangeCat}>
                     <option value="" disabled>Select category</option>
                     <option value={9}>General Knowledge</option>
                     <option value={10}>Entertainment: Books</option>
