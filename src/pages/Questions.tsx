@@ -1,4 +1,4 @@
-import { FormEvent, ReactNode, useRef, useState } from "react"
+import { FormEvent, Fragment, ReactNode, useRef, useState } from "react"
 import decodeHtmlEntities from "../components/DecodeEntities"
 import Radio from '../components/Radio'
 import { QuizQuestion } from "./Start"
@@ -7,6 +7,7 @@ const Questions = ({ data }: { data: Array<QuizQuestion> }): ReactNode => {
   const correctAnswers = useRef<string[]>(data.map((question: QuizQuestion) => question.correct_answer))
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([])
   const [score, setScore] = useState<number>(0)
+  const [answerStatus, setAnswerStatus] = useState<string[]>(Array(data.length).fill(''))
 
   const handleAnswers = (idx: number, answer: string) => {
     setSelectedAnswers(prevState => {
@@ -20,13 +21,18 @@ const Questions = ({ data }: { data: Array<QuizQuestion> }): ReactNode => {
     event.preventDefault();
 
     let currentScore: number = 0
+    const newAnswerStatus = [...answerStatus]
     correctAnswers.current.forEach((correctAnswer, idx) => {
       if (selectedAnswers[idx] === correctAnswer) {
         currentScore++
+        newAnswerStatus[idx] = 'correct'
+      } else {
+        newAnswerStatus[idx] = 'incorrect'
       }
     })
 
     setScore(currentScore)
+    setAnswerStatus(newAnswerStatus)
   }
 
   return (
@@ -38,7 +44,7 @@ const Questions = ({ data }: { data: Array<QuizQuestion> }): ReactNode => {
         const options = [...decodedIncorrectAnswers, decodedAnswer];
 
         return (
-          <>
+          <Fragment key={data.id}>
             <Radio
               key={data.id}
               question={decodedQuestion}
@@ -47,9 +53,10 @@ const Questions = ({ data }: { data: Array<QuizQuestion> }): ReactNode => {
               opt2={options[1]}
               opt3={options[2]}
               opt4={options[3]}
+              status={answerStatus[idx]}
               onChange={(answer: string) => handleAnswers(idx, answer)}
             />
-          </>
+          </Fragment>
         )}
       )}
       <br />

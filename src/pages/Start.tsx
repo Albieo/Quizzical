@@ -51,7 +51,7 @@ const Game = (): ReactNode => {
     if (isError) return <p>There was an error fetching questions: {error instanceof Error ? error.message : 'Unknown error'}</p>;
 
     return (
-        <div className="flex flex-col my-32 justify-center bg-slate-200 text-center content-center">
+        <div className="flex justify-center items-center h-screen bg-slate-200 text-center">
             <Questions data={questions} />
         </div>
     );

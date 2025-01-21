@@ -10,10 +10,11 @@ interface Question {
 }
 
 interface RadioProps extends Question {
+    status: string;
     onChange: (value: string) => void;
 }
 
-export default function Radio({ question, idx, opt1, opt2, opt3, opt4, onChange }: RadioProps): ReactNode {
+export default function Radio({ question, idx, opt1, opt2, opt3, opt4, status, onChange }: RadioProps): ReactNode {
     const [selected, setSelected] = useState(opt1);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,8 +22,11 @@ export default function Radio({ question, idx, opt1, opt2, opt3, opt4, onChange 
         onChange(event.target.value);
     }
 
-    const choosen: string = "bg-slate-400 py-1 px-4 rounded-lg text-white";
-    const notChoosen: string = "border-2 border-slate-500 py-1 px-4 rounded-lg cursor-pointer";
+    const choosen: string = "bg-slate-400 mx-2 py-1 px-8 rounded-lg text-white";
+    const notChoosen: string = "border-2 border-slate-500 mx-2 py-1 px-8 rounded-lg cursor-pointer";
+
+    const correctClass = "bg-green-200 border-2 border-green-700 mx-2 py-1 px-8 rounded-lg";
+    const incorrectClass = "bg-red-200 border-2 border-red-700 mx-2 py-1 px-8 rounded-lg text-blue-600";
 
 
     return (
@@ -68,25 +72,57 @@ export default function Radio({ question, idx, opt1, opt2, opt3, opt4, onChange 
 
                 <label
                     htmlFor={`option-${idx}-1`}
-                    className={selected === opt1 ? choosen : notChoosen}
+                    className={`${
+                        selected === opt1
+                        ? status === "correct"
+                            ? correctClass
+                            : status === "incorrect"
+                            ? incorrectClass
+                            : choosen
+                        : notChoosen
+                    }`}
                 >
                     {opt1}
                 </label>
                 <label
                     htmlFor={`option-${idx}-2`}
-                    className={selected === opt2 ? choosen : notChoosen}
+                    className={`${
+                        selected === opt2
+                        ? status === "correct"
+                            ? correctClass
+                            : status === "incorrect"
+                            ? incorrectClass
+                            : choosen
+                        : notChoosen
+                    }`}
                 >
                     {opt2}
                 </label>
                 <label
                     htmlFor={`option-${idx}-3`}
-                    className={selected === opt3 ? choosen : notChoosen}
+                    className={`${
+                        selected === opt3
+                        ? status === "correct"
+                            ? correctClass
+                            : status === "incorrect"
+                            ? incorrectClass
+                            : choosen
+                        : notChoosen
+                    }`}
                 >
                     {opt3}
                 </label>
                 <label
                     htmlFor={`option-${idx}-4`}
-                    className={selected === opt4 ? choosen : notChoosen}
+                    className={`${
+                        selected === opt4
+                        ? status === "correct"
+                            ? correctClass
+                            : status === "incorrect"
+                            ? incorrectClass
+                            : choosen
+                        : notChoosen
+                    }`}
                 >
                     {opt4}
                 </label>
