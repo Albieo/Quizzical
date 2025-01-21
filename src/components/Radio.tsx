@@ -32,7 +32,7 @@ export default function Radio({ question, idx, opt1, opt2, opt3, opt4, status, o
     return (
         <>
             <h1 className="font-bold mt-10 mb-3 text-xl">{question}</h1>
-            <div className="h-full w-1/2 mx-auto flex flex-row justify-evenly items-center bg-slate-200">
+            <div className="h-full w-full mx-auto flex flex-row justify-evenly items-center bg-slate-200">
                 <input
                     type="radio" 
                     name={`question-${idx}`} 
